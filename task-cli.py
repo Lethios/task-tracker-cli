@@ -10,7 +10,7 @@ if not os.path.exists(data_file):
 
 if len(sys.argv) == 1:
     print("Welcome to Task Tracker CLI!")
-    print("Usage: python task.py <command> [arguments]")
+    print("Usage: python task.py <command> ['task']")
     print("Commands: add")
     sys.exit(1)
 
@@ -23,7 +23,7 @@ else:
 
 if action == "help":
     print("Welcome to Task Tracker CLI!")
-    print("Usage: python task.py <command> [arguments]")
+    print("Usage: python task.py <command> ['task']")
     print("Commands: add")
 
 if action == "add":
@@ -40,7 +40,7 @@ if action == "add":
         else:
             new_id = 1
 
-        tasks.append({"task_id": new_id, "task": task, "created_at": datetime.now().strftime("%H:%M on %d-%m-%Y")})
+        tasks.append({"task_id": new_id, "task": task, "created_on": datetime.now().strftime("%d-%m-%Y")})
         file.seek(0)
         json.dump(tasks, file, indent=4)
         file.truncate()
