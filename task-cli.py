@@ -1,28 +1,74 @@
+"""
+Task Tracker CLI
+
+A command-line interface (CLI) application for managing tasks.
+Users can add, update, delete, list, and modify the status of tasks.
+Tasks are stored in a JSON file (data.json) and persist between runs.
+
+Author: Lethios
+Date: 27-3-2025
+"""
+
 import sys
 import os
 import json
 from datetime import datetime
 
-data_file = "data.json"
+DATA_FILE = "data.json"
+
+HELP_MESSAGE = f"""
+Welcome to Task Tracker CLI!
+Usage: python {sys.argv[0]} <command>
+
+Available commands:
+  add <task>                  - Add a new task
+  update <task_id> <task>     - Update an existing task
+  delete <task_id>            - Delete a task
+  list [status]               - List all tasks
+  mark-in-progress <task_id>  - Mark a task as in progress
+  mark-done <task_id>         - Mark a task as done
+  help                        - Show this help message
+"""
 
 def load_tasks():
-    if not os.path.exists(data_file):
+    """
+    Load tasks from the data file.
+
+    Reads the JSON file containing task data and returns a list of tasks.
+    If the file is empty or doesn't exist, it initializes an empty list.
+
+    Returns:
+        list: A list of task dictionaries.
+    """
+    if not os.path.exists(DATA_FILE):
         return []
-    with open(data_file, "r") as file:
+    with open(DATA_FILE, "r", encoding="utf-8") as file:
         data = file.read()
         return json.loads(data) if data else []
 
 def save_tasks(tasks):
-    with open(data_file, "w") as file:
+    """
+    Saves the list of tasks to the data file in JSON format.
+
+    Args:
+        tasks (list): A list of task dictionaries to be saved.
+
+    This function writes the provided list of tasks to 'data.json', 
+    ensuring the data is stored persistently. The file is truncated 
+    before writing to prevent any leftover data.
+    """
+
+    with open(DATA_FILE, "w", encoding="utf-8") as file:
         json.dump(tasks, file, indent=4)
 
 if len(sys.argv) == 1:
-    print("Welcome to Task Tracker CLI!")
-    print("Usage: python task.py <command> [args]")
-    print("Commands: add, update.")
+    print(HELP_MESSAGE)
     sys.exit(1)
 
-action = str(sys.argv[1])
+ACTION = str(sys.argv[1])
+
+task = None
+task_id = None
 
 if len(sys.argv) > 2:
     if len(sys.argv) == 3:
@@ -36,104 +82,146 @@ if len(sys.argv) > 2:
 else:
     task = None
 
-if action == "help":
-    print("Welcome to Task Tracker CLI!")
-    print("Usage: python task.py <command> [args]")
-    print("Commands: add, update.")
+if ACTION == "help":
+    print(HELP_MESSAGE)
+    sys.exit(1)
 
-elif action == "add":
+elif ACTION == "add":
     tasks = load_tasks()
-    new_id = tasks[-1]["task_id"] + 1 if tasks else 1
-    tasks.append({"status": "todo", "task_id": new_id, "task": task, "created_on": datetime.now().strftime("%d-%m-%Y")})
+    NEW_ID = tasks[-1]["task_id"] + 1 if tasks else 1
+    date_now = datetime.now().strftime("%d-%m-%Y")
+    tasks.append({"status": "todo", "task_id": NEW_ID, "task": task, "created_on": date_now})
     save_tasks(tasks)
-    print(f"Task added successfully. (Task ID: {new_id})")
+    print(f"Task added successfully. (Task ID: {NEW_ID})")
 
-elif action == "update":
+elif ACTION == "update":
     tasks = load_tasks()
     if not tasks:
         print("No tasks found.")
         sys.exit(1)
-    
-    task_found = False
+
+    TASK_FOUND = False
     for task in tasks:
         if task["task_id"] == task_id:
             task["task"] = str(sys.argv[3])
-            task["updated_on"] = datetime.now().strftime("%d-%m-%Y")
-            task_found = True
+            date_now = datetime.now().strftime("%d-%m-%Y")
+            task["updated_on"] = date_now
+            TASK_FOUND = True
             break
 
-    if not task_found:
+    if not TASK_FOUND:
         print(f"No tasks found with ID {task_id}.")
         sys.exit(1)
-    
+
     save_tasks(tasks)
     print(f"Task {task_id} updated successfully.")
 
-elif action == "delete":
+elif ACTION == "delete":
     tasks = load_tasks()
     if not tasks:
         print("No tasks found.")
         sys.exit(1)
-    
-    task_found = False
+
+    TASK_FOUND = False
     for task in tasks:
         if task["task_id"] == int(task_id):
             tasks.remove(task)
-            task_found = True
+            TASK_FOUND = True
             break
 
-    if not task_found:
+    if not TASK_FOUND:
         print(f"No tasks found with ID {task_id}")
         sys.exit(1)
-    
+
     save_tasks(tasks)
     print(f"Task {task_id} deleted successfully.")
 
-elif action == "mark-in-progress":
+elif ACTION == "mark-in-progress":
     tasks = load_tasks()
     if not tasks:
         print("No tasks found.")
         sys.exit(1)
 
-    task_found = False
+    TASK_FOUND = False
     for task in tasks:
         if task["task_id"] == int(task_id):
             task["status"] = "in-progress"
-            task_found = True
+            TASK_FOUND = True
             break
 
-    if not task_found:
+    if not TASK_FOUND:
         print(f"No tasks found with ID {task_id}")
         sys.exit(1)
 
     save_tasks(tasks)
     print(f"Task {task_id} marked in-progress successfully.")
 
-elif action == "mark-done":
+elif ACTION == "mark-done":
     tasks = load_tasks()
     if not tasks:
         print("No tasks found.")
+        sys.exit(1)
 
-    task_found = False
+    TASK_FOUND = False
     for task in tasks:
         if task["task_id"] == int(task_id):
             task["status"] = "done"
-            task_found = True
+            TASK_FOUND = True
             break
 
-    if not task_found:
+    if not TASK_FOUND:
         print(f"No tasks found with ID {task_id}")
         sys.exit(1)
 
     save_tasks(tasks)
     print(f"Task {task_id} marked done successfully.")
 
-elif action == "list":
-    tasks = load_tasks()
-    if not tasks:
-        print("No tasks found.")
-        
-    for task in tasks:
-        print(f"Task {task["task_id"]}: {task["task"]}  Status: {task["status"]}")
+elif ACTION == "list":
+    if len(sys.argv) == 2:
+        tasks = load_tasks()
+        if not tasks:
+            print("No tasks found.")
+            sys.exit(1)
 
-    save_tasks(tasks)
+        for task in tasks:
+            print(f"Task {task["task_id"]}: {task["task"]}  (Status: {task["status"]})")
+
+        save_tasks(tasks)
+
+    elif len(sys.argv) == 3:
+        tasks = load_tasks()
+        if not tasks:
+            print("No tasks found.")
+            sys.exit(1)
+
+        TASK_FOUND = False
+
+        if sys.argv[2] == "todo":
+            for task in tasks:
+                if task["status"] == "todo":
+                    print(f"Task {task["task_id"]}: {task["task"]}")
+                    TASK_FOUND = True
+
+        elif sys.argv[2] == "in-progress":
+            for task in tasks:
+                if task["status"] == "in-progress":
+                    print(f"Task {task["task_id"]}: {task["task"]}")
+                    TASK_FOUND = True
+
+        elif sys.argv[2] == "done":
+            for task in tasks:
+                if task["status"] == "done":
+                    print(f"Task {task["task_id"]}: {task["task"]}")
+                    TASK_FOUND = True
+
+        else:
+            print("Invalid argument.")
+            sys.exit(1)
+
+        if not TASK_FOUND:
+            print(f"No tasks found with status {sys.argv[2]}.")
+            sys.exit(1)
+
+else:
+    print("Invalid arguments.")
+    sys.exit(1)
