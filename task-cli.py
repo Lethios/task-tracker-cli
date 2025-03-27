@@ -6,7 +6,7 @@ from datetime import datetime
 data_file = "data.json"
 if not os.path.exists(data_file):
     with open(data_file, "w") as file:
-        json.dump(file)
+        json.dump([], file)
 
 if len(sys.argv) == 1:
     print("Welcome to Task Tracker CLI!")
