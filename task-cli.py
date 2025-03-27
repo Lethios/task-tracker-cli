@@ -17,11 +17,14 @@ if len(sys.argv) == 1:
 action = str(sys.argv[1])
 
 if len(sys.argv) > 2:
-    if sys.argv[2].isdigit():
-        task_id = int(sys.argv[2])
-        task = str(sys.argv[3])
+    if len(sys.argv) == 3:
+        if sys.argv[2].isdigit():            
+            task_id = int(sys.argv[2])
+        else:
+            task = str(sys.argv[2])
     else:
-        task = str(sys.argv[2])            
+        task = str(sys.argv[3])
+        task_id = int(sys.argv[2])
 else:
     task = None
 
@@ -79,3 +82,31 @@ if action == "update":
         file.truncate()
 
     print(f"Task {task_id} updated successfully.")
+
+if action == "delete":
+    with open("data.json", "r+") as file:
+        data = file.read()
+
+        if data:
+            tasks = json.loads(data)            
+        else:            
+            print("No tasks found. Add a task before deleting.")
+            sys.exit(1)        
+
+        task_found = False
+
+        for task in tasks:
+            if task["task_id"] == int(task_id):
+                tasks.remove(task)
+                task_found = True
+                break
+
+        if not task_found:
+            print(f"No tasks found with ID {task_id}")
+            sys.exit(1)
+
+        file.seek(0)
+        json.dump(tasks, file, indent=4)
+        file.truncate()
+
+    print(f"Task {task_id} deleted successfully.")
