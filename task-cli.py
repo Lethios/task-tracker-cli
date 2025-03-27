@@ -127,3 +127,13 @@ elif action == "mark-done":
 
     save_tasks(tasks)
     print(f"Task {task_id} marked done successfully.")
+
+elif action == "list":
+    tasks = load_tasks()
+    if not tasks:
+        print("No tasks found.")
+        
+    for task in tasks:
+        print(f"Task {task["task_id"]}: {task["task"]}  Status: {task["status"]}")
+
+    save_tasks(tasks)
