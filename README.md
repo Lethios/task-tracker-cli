@@ -52,5 +52,5 @@ python task-cli.py <command> [arguments]
 
 ## License
 
-Copyright @ 2025 [Lethios](https://github.com/Lethios).  
+Copyright © 2025 [Lethios](https://github.com/Lethios).  
 This project is licensed under the [MIT License](LICENSE).
