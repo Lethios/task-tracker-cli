@@ -2,9 +2,7 @@
 
 Task Tracker CLI is a simple command-line tool for managing tasks efficiently.  
 Users can add, update, delete, list, and track the status of tasks.  
-Tasks are stored in a JSON file (`data.json`) to ensure persistence between runs.  
-
-**Project URL:** [https://roadmap.sh/projects/task-tracker](https://roadmap.sh/projects/task-tracker)
+Tasks are stored in a JSON file (`data.json`) to ensure persistence between runs.
 
 ---
 
