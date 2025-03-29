@@ -77,6 +77,7 @@ if ACTION == "add":
     task_list.append({"status": "todo", "task_id": NEW_ID, "task": TASK, "created_on": date_now})
     save_tasks(task_list)
     print(f"Task added successfully. (Task ID: {NEW_ID})")
+    sys.exit(0)
 
 elif ACTION == "update":
     for task in task_list:
@@ -93,6 +94,7 @@ elif ACTION == "delete":
     task_list = [task for task in task_list if task["task_id"] != TASK_ID]
     save_tasks(task_list)
     print(f"Task {TASK_ID} deleted successfully.")
+    sys.exit(0)
 
 elif ACTION == "mark-in-progress":
     for task in task_list:
