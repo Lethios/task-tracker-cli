@@ -7,13 +7,13 @@ Tasks are stored in a JSON file (`data.json`) to ensure persistence between runs
 ---
 
 ## Features  
-✔ Add new tasks  
-✏ Update existing tasks  
-❌ Delete tasks  
-📋 List all tasks (with optional filtering by status)  
-🚀 Mark tasks as "in progress"  
-✅ Mark tasks as "done"  
-💾 Tasks persist using JSON storage  
+- Add new tasks  
+- Update existing tasks  
+- Delete tasks  
+- List all tasks (with optional filtering by status)  
+- Mark tasks as "in progress"  
+- Mark tasks as "done"  
+- Tasks persist using JSON storage  
 
 ---
 
