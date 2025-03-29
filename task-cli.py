@@ -136,4 +136,5 @@ elif ACTION == "list":
 
 else:
     print("Invalid command.")
+    print(HELP_MESSAGE)
     sys.exit(1)
