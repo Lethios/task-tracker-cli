@@ -19,12 +19,11 @@ Tasks are stored in a JSON file (`data.json`) to ensure persistence between runs
 
 ## Installation  
 
-1. **Clone the repository:**  
+1. **Ensure Python is installed (Python 3.x recommended).**
+2. **Clone the repository:**  
    ```bash
    git clone https://github.com/Lethios/task-tracker-cli.git
    cd task-tracker-cli
-2. **Ensure Python is installed (Python 3.x recommended).**
-
 
 ## Usage
 Run the program using Python:
