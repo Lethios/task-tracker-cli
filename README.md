@@ -19,7 +19,7 @@ Tasks are stored in a JSON file (`data.json`) to ensure persistence between runs
 
 ## Installation  
 
-1. **Clone the repository**  
+1. **Clone the repository:**  
    ```bash
    git clone https://github.com/Lethios/task-tracker-cli.git
    cd task-tracker-cli
