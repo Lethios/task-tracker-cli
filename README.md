@@ -4,7 +4,6 @@ Task Tracker CLI is a simple command-line tool for managing tasks efficiently.
 Users can add, update, delete, list, and track the status of tasks.  
 Tasks are stored in a JSON file (`data.json`) to ensure persistence between runs.
 
----
 
 ## Features  
 - Add new tasks.
@@ -15,7 +14,6 @@ Tasks are stored in a JSON file (`data.json`) to ensure persistence between runs
 - Mark tasks as "done".
 - Tasks persist using JSON storage.
 
----
 
 ## Installation
 1. **Ensure Python is installed (Python 3.x recommended).**
