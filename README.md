@@ -17,8 +17,7 @@ Tasks are stored in a JSON file (`data.json`) to ensure persistence between runs
 
 ---
 
-## Installation  
-
+## Installation
 1. **Ensure Python is installed (Python 3.x recommended).**
 2. **Clone the repository:**  
    ```bash
@@ -32,7 +31,6 @@ python task-cli.py <command> [arguments]
 ```
 
 ## Available Commands
-
 | Command                         | Description                                | Example Usage                                      |
 |---------------------------------|--------------------------------------------|----------------------------------------------------|
 | `add "<task>"`                  | Add a new task                             | `python task-cli.py add "Complete report"`    |
@@ -45,12 +43,10 @@ python task-cli.py <command> [arguments]
 | `help`                          | Display the help message                   | `python task-cli.py help`                     |
 
 ## Author
-
 **Lethios**
 - Github: [@Lethios](https://github.com/Lethios)
 - Twitter: [@LethiosDev](https://x.com/LethiosDev)
 
 ## License
-
 Copyright © 2025 [Lethios](https://github.com/Lethios).  
 This project is licensed under the [MIT License](LICENSE).
