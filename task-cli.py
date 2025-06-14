@@ -1,14 +1,3 @@
-"""
-Task Tracker CLI
-
-A command-line interface (CLI) application for managing tasks.
-Users can add, update, delete, list, and modify the status of tasks.
-Tasks are stored in a JSON file (data.json) and persist between runs.
-
-Author: Lethios
-Date: 27-3-2025
-"""
-
 import sys
 import os
 import json
